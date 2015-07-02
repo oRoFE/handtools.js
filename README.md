@@ -10,7 +10,7 @@
 navigator.userAgentに以下の文字列にマッチするかどうかでモバイルかどうかの判定をする関数です。
 返り値はマッチした文字列、マッチしなければ`false`を返します。
 
-```
+```JavaScript
 "iPhone",         //  Apple iPhone
 "iPod",           //  Apple iPod touch
 "Android",        //  1.5+ Android

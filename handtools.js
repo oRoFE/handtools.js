@@ -49,12 +49,6 @@
       return matchStr? matchStr[0] : false;
     };
 
-    /**
-     * for IE 6
-     */
-    try {
-      document.execCommand('BackgroundImageCache', false, true); 
-    } catch(error) {};
 
     /**
      * for IE
@@ -75,8 +69,8 @@
       console.time     =
       console.timeEnd  =
       console.assert   =
-      console.profile  = function(){};
-    };
+      console.profile  = $.noop;
+    }
 
     /**
      * Private functions
