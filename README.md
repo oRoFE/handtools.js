@@ -34,3 +34,25 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 #### 例）"iPad"も"safari"も判定したい
 `$.handtools.isMobile("iPad", "safari");`
+
+## stopPropagation (IE8 以下対応版)
+
+### 使い方
+```JavaScript
+$anchor.on('click', function(event) {
+  $.handtools.stopPropagation(event);
+});
+```
+
+イベントのバブリングをキャンセルする関数です。例えば、子要素クリック時に、親要素のクリックイベントハンドラを動作させたくない場合に使えます。IE8 以下にも対応しています。
+
+## preventDefault (IE8 以下対応版)
+
+### 使い方
+```JavaScript
+$anchor.on('click', function(event) {
+  $.handtools.preventDefault(event);
+});
+```
+
+イベント発生時のブラウザデフォルトの動作をキャンセルする関数です。例えば、リンククリック時のページ遷移を防ぐといった使い方ができます。IE8 以下にも対応しています。
