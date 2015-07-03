@@ -54,8 +54,8 @@
      * for IE
      */
     if('undefined' === typeof console) {
-      var console = {};
-      
+      window.console = {};
+
       console.log      =
       console.error    =
       console.info     =
