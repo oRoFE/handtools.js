@@ -9,11 +9,11 @@
      */
     var UA = navigator.userAgent;
 
-    
+
     /**
      * Public functions
      */
-    
+
     /**
      * [isMobile description]
      * check whether userAgent is matched mobile or not
@@ -53,9 +53,9 @@
     /**
      * for IE
      */
-    if('undefined' === typeof console) {
-      var console = {};
-      
+    if('undefined' === typeof window.console) {
+      window.console = {};
+
       console.log      =
       console.error    =
       console.info     =
