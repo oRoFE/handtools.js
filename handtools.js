@@ -48,6 +48,41 @@
 
       return matchStr? matchStr[0] : false;
     };
+    
+    /**
+     * [getCountDown description]
+     * 年月日を指定するだけで、その日までの残日数がreturnされるメソッドです。
+     *
+     * 使用例:
+     * var getCount = $.handtools.getCountDown(2020, 7, 24); // 東京オリンピック(2020)までのカウントダウン
+     *
+     * @param {int} year  対象日付の「年」
+     * @param {int} month  対象日付の「月」
+     * @param {int} date  対象日付の「日」
+     * @return {int}  対象までの残日数
+     */
+    function getCountDown(year, month, date) {
+      // 戻り値
+      var result = 0;
+      
+      // Dateオブジェクトを生成
+      var
+        dateObj = new Date(),
+        todayYear = dateObj.getFullYear(),
+        todayMonth = dateObj.getMonth(),
+        todayDate = dateObj.getDate();
+      
+      // イベントまでの協定世界時をミリ秒で取得
+      var eventUTC = Date.UTC(year, month - 1, date);
+      
+      // 現在までの協定世界時をミリ秒で取得
+      var todayUTC = Date.UTC(todayYear, todayMonth, todayDate);
+      
+      // イベントまでの差分を日数に直す
+      result = Math.max(0, (eventUTC - todayUTC) / 1000 / 60 / 60 / 24);
+      
+      return result;
+    }
 
 
     /**
@@ -77,7 +112,8 @@
      */
 
     return {
-      'isMobile' : isMobile
+      'isMobile': isMobile,
+      'getCountDown': getCountDown
     };
   })();
 
