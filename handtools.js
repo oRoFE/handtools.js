@@ -9,11 +9,11 @@
      */
     var UA = navigator.userAgent;
 
-    
+
     /**
      * Public functions
      */
-    
+
     /**
      * [isMobile description]
      * check whether userAgent is matched mobile or not
@@ -53,9 +53,36 @@
     /**
      * for IE
      */
+
+    /**
+     * IE8 以下対応版の preventDefault
+     * イベントのデフォルトの動作をキャンセルする。
+     * @param {event} - イベントオブジェクト
+     */
+    function preventDefault(event) {
+      if (typeof event.preventDefault === 'function') {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+    }
+
+    /**
+     * IE8 以下対応版の stopPropagation
+     * イベントのバブリングを止める。
+     * @param {event} - イベントオブジェクト
+     */
+    function stopPropagation(event) {
+      if (typeof event.stopPropagation === 'function') {
+        event.stopPropagation();
+      } else {
+        event.cancelBubble = true;
+      }
+    }
+
     if('undefined' === typeof console) {
-      var console = {};
-      
+      window.console = {};
+
       console.log      =
       console.error    =
       console.info     =
@@ -77,7 +104,9 @@
      */
 
     return {
-      'isMobile' : isMobile
+      isMobile : isMobile,
+      preventDefault: preventDefault,
+      stopPropagation: stopPropagation
     };
   })();
 
