@@ -50,6 +50,65 @@
     };
 
 
+    var addMouseEffectImg = function(option) {
+      var param = $.extend({
+            'fixClass'  : ['current', 'active'],
+            'onName'    : '_on',
+            'offName'   : '_off'
+          }, option),
+
+          $img  = $( 'img[src*="' + param['offName'] + '.' + '"], input[src*="' + param['offName'] + '.' + '"]' ),
+          i     = 0,
+          len   = $img.length,
+          $focus,
+          defaultSrc,
+          rollOverSrc,
+          imgType,
+          rollOverImg;
+
+      for( ; i < len; i ++ ) {
+
+        $focus      = $img.eq(i),
+        defaultSrc  = $focus.attr('src'),
+        imgType     = defaultSrc.match(/\.(jpg|gif|png)(\?.*)?$/);
+
+        if(imgType){
+
+          if(param['offName']){
+            rollOverSrc = defaultSrc.replace(param['offName'] + imgType[0], param['onName'] + imgType[0]);
+          } else {
+            rollOverSrc = defaultSrc.replace(imgType[0], param['onName'] + imgType[0]);
+          }
+
+          rollOverImg = new Image();
+          rollOverImg.src = rollOverSrc;
+
+          $.data($focus[0], 'src', {
+            'defaultSrc'  : defaultSrc,
+            'rollOverSrc' : rollOverSrc
+          });
+
+          $focus.on({
+            'mouseenter': function(){
+              var $this = $(this);
+              $this.attr('src', $.data(this, 'src').rollOverSrc);
+            },
+            'mouseleave': function(){
+              var $this = $(this);
+              if( param.fixClass ) {
+                $this.not( '.' + param.fixClass.join(',.') ).attr('src', $.data(this, 'src').defaultSrc);
+              } else {
+                $this.attr('src', $.data(this, 'src').defaultSrc);
+              }
+            }
+          });
+        }
+      }
+      
+      return $img;
+    };
+
+
     /**
      * for IE
      */
@@ -77,7 +136,8 @@
      */
 
     return {
-      'isMobile' : isMobile
+      'isMobile'          : isMobile,
+      'addMouseEffectImg' : addMouseEffectImg
     };
   })();
 
