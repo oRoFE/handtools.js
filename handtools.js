@@ -57,14 +57,14 @@
             'offName'   : '_off'
           }, option),
 
-          $img  = $( 'img[src*="' + param['offName'] + '.' + '"], input[src*="' + param['offName'] + '.' + '"]' ),
+          $img  = $( 'img[src*="' + param.offName + '.' + '"], input[src*="' + param.offName + '.' + '"]' ),
           i     = 0,
           len   = $img.length,
           $focus,
           defaultSrc,
+          rollOverImg,
           rollOverSrc,
-          imgType,
-          rollOverImg;
+          imgType;
 
       for( ; i < len; i ++ ) {
 
@@ -74,11 +74,7 @@
 
         if(imgType){
 
-          if(param['offName']){
-            rollOverSrc = defaultSrc.replace(param['offName'] + imgType[0], param['onName'] + imgType[0]);
-          } else {
-            rollOverSrc = defaultSrc.replace(imgType[0], param['onName'] + imgType[0]);
-          }
+          rollOverSrc = defaultSrc.replace(param.offName + imgType[0], param.onName + imgType[0]);
 
           rollOverImg = new Image();
           rollOverImg.src = rollOverSrc;
@@ -87,24 +83,22 @@
             'defaultSrc'  : defaultSrc,
             'rollOverSrc' : rollOverSrc
           });
-
-          $focus.on({
-            'mouseenter': function(){
-              var $this = $(this);
-              $this.attr('src', $.data(this, 'src').rollOverSrc);
-            },
-            'mouseleave': function(){
-              var $this = $(this);
-              if( param.fixClass ) {
-                $this.not( '.' + param.fixClass.join(',.') ).attr('src', $.data(this, 'src').defaultSrc);
-              } else {
-                $this.attr('src', $.data(this, 'src').defaultSrc);
-              }
-            }
-          });
         }
+
+        $img.on({
+          'mouseenter': function(){
+            $(this).attr('src', $.data(this, 'src').rollOverSrc);
+          },
+          'mouseleave': function(){
+            if( param.fixClass ) {
+              $(this).not( '.' + param.fixClass.join(',.') ).attr('src', $.data(this, 'src').defaultSrc);
+            } else {
+              $(this).attr('src', $.data(this, 'src').defaultSrc);
+            }
+          }
+        });
       }
-      
+
       return $img;
     };
 

@@ -59,7 +59,7 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 `$.handtools.addMouseEffectImg();`
 
-&lt;img&gt;のsrcの値に`_off`が命名されている画像に`mouseenter`と`mouseleave`イベントを付与します。
+&lt;img&gt;と&lt;input&gt;のsrcの値に`_off`が命名されている画像に`mouseenter`と`mouseleave`イベントを付与します。
 マウスオーバーすると`_off`を`_on`に、マウスアウトすると`_on`を`_off`に差し替えます。
 
 時々、キャッシュ対策のためにパラメータが付与されてる場合もありますが、それも考慮しています。
@@ -78,7 +78,7 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 返り値はイベントが付与されたjQueryオブジェクトになります。
 
-&lt;img&gt;に`current`, `active`クラスが付与されているとマウスアウトした際、差し替えは発生しません。
+`current`, `active`クラスが付与されているとマウスアウトした際、差し替えは発生しません。
 
 イベント付与したい画像の命名ルールと差し替え効果を発生させたくないクラス名は引数で変更できます。
 デフォルトは以下になります。
@@ -91,7 +91,7 @@ $.handtools.addMouseEffectImg({
 });
 ```
 
-#### 例）`current`と`ac`クラスが付与されている時に差し替え効果を発生させたくない
+#### 例）`current`もしくは`ac`クラスが付与されている時に差し替え効果を発生させたくない
 
 ```JavaScript
 $.handtools.addMouseEffectImg({
@@ -108,7 +108,7 @@ $.handtools.addMouseEffectImg({
 });
 ```
 
-変換前のsrcと変換後のsrcの値はjQueryのdataメソッドで保存しています。
+変換前のsrcと変換後のsrcの値はjQueryのdataメソッドで保存しているので、取得したいときは以下のように取得できます。
 
 ```html
 <img src="img/btn-dummy_off.png" alt="">
