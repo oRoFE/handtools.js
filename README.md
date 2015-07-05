@@ -51,3 +51,23 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 #### 例）"iPad"も"safari"も判定したい
 `$.handtools.isMobile("iPad", "safari");`
+
+## extractUrlParams
+
+### 使い方
+`$.handtools.extractUrlParams();`
+
+URL の '?' 以降のクエリ文字列をパースし、オブジェクトとして返す関数です。
+各クエリ文字列の左辺をオブジェクトの key、右辺を value として格納します。
+右辺が指定されていない場合は空文字として扱います。
+
+```JavaScript
+// http://example.com/?q=search&foo=bar の時
+$.handtools.extractUrlParams(); // => { q: 'search', foo: 'bar' }
+
+// http://example.com/ の時
+$.handtools.extractUrlParams(); // => {}
+
+// http://example.com/?key の時
+$.handtools.extractUrlParams(); // => { key: '' }
+```
