@@ -7,7 +7,7 @@
 <script src="handtools.js"></script>
 </head>
 <body>
-  <img src="img/btn-dummy_off.png?dsgsj;lj;ldkfg" class="active" alt="">
+  <img src="img/btn-dummy_off.png?dsgsj;lj;ldkfg" class="active current" alt="">
   <img src="img/btn-dummy_off.png" class="current" alt="">
   <img src="img/btn-dummy_off.png" alt="">
   <img src="img/btn-dummy_off.png?dgfjlk1" alt="">
@@ -69,7 +69,8 @@
   console.log( $img.eq(0).data('src').defaultSrc ); // => img/btn-dummy_off.png
   console.log( $img.eq(0).data('src').rollOverSrc ); // => img/btn-dummy_on.png
 
-  console.log( $img.eq(0).hasClass("active,current") );
+  console.log( $img.eq(5) );
+
 </script>
 </body>
 </html>
