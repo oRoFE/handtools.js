@@ -51,3 +51,75 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 #### 例）"iPad"も"safari"も判定したい
 `$.handtools.isMobile("iPad", "safari");`
+
+
+## addMouseEffectImg
+
+### 使い方
+
+`$.handtools.addMouseEffectImg();`
+
+&lt;img&gt;と&lt;input&gt;のsrcの値に`_off`が命名されている画像に`mouseenter`と`mouseleave`イベントを付与します。
+マウスオーバーすると`_off`を`_on`に、マウスアウトすると`_on`を`_off`に差し替えます。
+
+時々、キャッシュ対策のためにパラメータが付与されてる場合もありますが、それも考慮しています。
+
+```html
+<img src="img/btn-dummy_off.png" alt="">
+<img src="img/btn-dummy_off.jpg" alt="">
+<img src="img/btn-dummy_off.gif" alt="">
+<img src="img/btn-dummy_off.png?dagkljdhfgsdkflgjh" alt="">
+<!-- ↓↓↓↓ -->
+<img src="img/btn-dummy_on.png" alt="">
+<img src="img/btn-dummy_on.jpg" alt="">
+<img src="img/btn-dummy_on.gif" alt="">
+<img src="img/btn-dummy_on.png?dagkljdhfgsdkflgjh" alt="">
+```
+
+返り値はイベントが付与されたjQueryオブジェクトになります。
+
+`current`, `active`クラスが付与されているとマウスアウトした際、差し替えは発生しません。
+
+イベント付与したい画像の命名ルールと差し替え効果を発生させたくないクラス名は引数で変更できます。
+デフォルトは以下になります。
+
+```JavaScript
+$.handtools.addMouseEffectImg({
+  'fixClass'  : ['current', 'active'],
+  'onName'    : '_on',
+  'offName'   : '_off'
+});
+```
+
+#### 例）`current`もしくは`ac`クラスが付与されている時に差し替え効果を発生させたくない
+
+```JavaScript
+$.handtools.addMouseEffectImg({
+  'fixClass'  : ['current', 'ac']
+});
+```
+
+#### 例）&lt;img&gt;のsrcの値が`-off`の時に`-ac`に差し替えしたい
+
+```JavaScript
+$.handtools.addMouseEffectImg({
+  'onName'    : '-ac',
+  'offName'   : '-off'
+});
+```
+
+変換前のsrcと変換後のsrcの値はjQueryのdataメソッドで保存しているので、取得したいときは以下のように取得できます。
+
+```html
+<img src="img/btn-dummy_off.png" alt="">
+<script>
+var $img = $.handtools.addMouseEffectImg();
+
+$.data($img.eq(0)[0], 'src').defaultSrc; // => img/btn-dummy_off.png
+$.data($img.eq(0)[0], 'src').rollOverSrc; // => img/btn-dummy_on.png
+
+$img.eq(0).data('src').defaultSrc; // => img/btn-dummy_off.png
+$img.eq(0).data('src').rollOverSrc; // => img/btn-dummy_on.png
+
+</script>
+```

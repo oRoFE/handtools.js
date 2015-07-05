@@ -7,8 +7,70 @@
 <script src="handtools.js"></script>
 </head>
 <body>
+  <img src="img/btn-dummy_off.png?dsgsj;lj;ldkfg" class="active current" alt="">
+  <img src="img/btn-dummy_off.png" class="current" alt="">
+  <img src="img/btn-dummy_off.png" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk1" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk2" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk3" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk4" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk5" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk6" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk7" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk8" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk9" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk10" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk11" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk12" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk13" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk14" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk15" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk16" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk17" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk18" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk19" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk20" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk21" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk22" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk23" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk24" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk25" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk26" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk27" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk28" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk29" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk30" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk31" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk32" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk33" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk34" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk35" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk36" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk37" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk38" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk39" alt="">
+  <img src="img/btn-dummy_off.png?dgfjlk40" alt="">
 <script>
+
+  /**
+   * [isMobile]
+   */
   console.log($.handtools.isMobile());
+
+
+  /**
+   * [addMouseEffectImg]
+   */
+  var $img = $.handtools.addMouseEffectImg();
+
+  console.log( $.data($img.eq(0)[0], 'src').defaultSrc ); // => img/btn-dummy_off.png
+  console.log( $.data($img.eq(0)[0], 'src').rollOverSrc ); // => img/btn-dummy_on.png
+  // or //
+  console.log( $img.eq(0).data('src').defaultSrc ); // => img/btn-dummy_off.png
+  console.log( $img.eq(0).data('src').rollOverSrc ); // => img/btn-dummy_on.png
+
+  console.log( $img.eq(5) );
+
 </script>
 </body>
 </html>

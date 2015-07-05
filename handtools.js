@@ -49,6 +49,61 @@
       return matchStr? matchStr[0] : false;
     };
 
+    /**
+     * [addMouseEffectImg description]
+     * add 'mouseenter' and 'mouseleave' event to <img> and <input> including '_off' in 'src' attribute.
+     * 
+     * @return {[jQuery object]} [description]
+     * jQuery object added this event
+     */
+    var addMouseEffectImg = function(option) {
+      var param = $.extend({
+            'fixClass'  : ['current', 'active'],
+            'onName'    : '_on',
+            'offName'   : '_off'
+          }, option),
+
+          $img  = $( 'img[src*="' + param.offName + '.' + '"], input[src*="' + param.offName + '.' + '"]' ),
+          i     = 0,
+          len   = $img.length,
+          $focus,
+          defaultSrc,
+          rollOverImg,
+          rollOverSrc,
+          imgType;
+
+      for( ; i < len; i ++ ) {
+
+        $focus      = $img.eq(i);
+        defaultSrc  = $focus.attr('src');
+        imgType     = defaultSrc.match(/\.(jpg|gif|png)(\?.*)?$/i);
+
+        rollOverSrc = defaultSrc.replace(param.offName + imgType[0], param.onName + imgType[0]);
+
+        rollOverImg = new Image();
+        rollOverImg.src = rollOverSrc;
+
+        $.data($focus[0], 'src', {
+          'defaultSrc'  : defaultSrc,
+          'rollOverSrc' : rollOverSrc
+        });
+      }
+
+      $img.on({
+        'mouseenter': function(){
+          $(this).attr('src', $.data(this, 'src').rollOverSrc);
+         },
+        'mouseleave': function(){
+          var $this = $(this);
+          if( !(param.fixClass && $this.is('.' + param.fixClass.join(',.'))) ) {
+            $this.attr('src', $.data(this, 'src').defaultSrc);
+          }
+        }
+      });
+
+      return $img;
+    };
+
 
     /**
      * for IE
@@ -77,7 +132,8 @@
      */
 
     return {
-      'isMobile' : isMobile
+      'isMobile'          : isMobile,
+      'addMouseEffectImg' : addMouseEffectImg
     };
   })();
 
