@@ -51,3 +51,28 @@ navigator.userAgentに以下の文字列にマッチするかどうかでモバ�
 
 #### 例）"iPad"も"safari"も判定したい
 `$.handtools.isMobile("iPad", "safari");`
+
+
+## getCountDown
+
+### 使い方
+`$.handtools.getCountDown(年, 月, 日, 時間※, 分※, 秒※);`
+※任意
+
+年月日時分秒を指定すると、今から指定日までの残り年月日時分秒が返る関数です。
+時、分、秒は任意項目ですが、指定しない場合は0時0分0秒の扱いになります。
+返り値はObject型、以下の様に返ります。
+
+| .year   | 残り年数 |
+| .month  | 残り月数 |
+| .date   | 残り日数 |
+| .hour   | 残り時間 |
+| .minute | 残り分   |
+| .second | 残り秒   |
+
+#### 例）2020年7月24日開催の東京オリンピックまでのカウントダウン
+
+```JavaScript
+var result = $.handtools.getCountDown(2020, 7, 24);
+console.log("東京オリンピックまで、あと", result.date, "日");
+```

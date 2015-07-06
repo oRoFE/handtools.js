@@ -51,36 +51,60 @@
     
     /**
      * [getCountDown description]
-     * 年月日を指定するだけで、その日までの残日数がreturnされるメソッドです。
+     * 年月日時分秒（時、分、秒は任意）を指定すると、残り年月日時分秒が返る。
      *
-     * 使用例:
-     * var getCount = $.handtools.getCountDown(2020, 7, 24); // 東京オリンピック(2020)までのカウントダウン
-     *
-     * @param {int} year  対象日付の「年」
-     * @param {int} month  対象日付の「月」
-     * @param {int} date  対象日付の「日」
-     * @return {int}  対象までの残日数
+     * @param {int} year  指定日の「年」
+     * @param {int} month  指定日の「月」
+     * @param {int} date  指定日の「日」
+     * @param {int} hour  指定日の「時」
+     * @param {int} minute  指定日の「分」
+     * @param {int} second  指定日の「秒」
+     * @return {object} year  指定日までの残年数（※時分秒は考慮しない）
+     * @return {object} month  指定日までの残月数（※時分秒は考慮しない）
+     * @return {object} date  指定日までの残日数
+     * @return {object} hour  指定日までの残時間
+     * @return {object} minute  指定日までの残分
+     * @return {object} second  指定日までの残秒
      */
-    function getCountDown(year, month, date) {
-      // 戻り値
-      var result = 0;
+    function getCountDown(year, month, date, hour, minute, second) {
+      if (!year || !month || !date || parseInt(year, 10) === 0 || parseInt(month, 10) === 0 || parseInt(date, 10) === 0 || parseInt(month, 10) > 12) return false;
+      if (!hour) hour = 0;
+      if (!minute) minute = 0;
+      if (!second) second = 0;
       
-      // Dateオブジェクトを生成
       var
+        // 指定日のint化
+        targetYear = parseInt(year, 10),
+        targetMonth = parseInt(month, 10),
+        targetDate = parseInt(date, 10),
+        targetHour = parseInt(hour, 10),
+        targetMinute = parseInt(minute, 10),
+        targetSecond = parseInt(second, 10),
+        
+        // 現在の設定
         dateObj = new Date(),
         todayYear = dateObj.getFullYear(),
-        todayMonth = dateObj.getMonth(),
-        todayDate = dateObj.getDate();
-      
-      // イベントまでの協定世界時をミリ秒で取得
-      var eventUTC = Date.UTC(year, month - 1, date);
-      
-      // 現在までの協定世界時をミリ秒で取得
-      var todayUTC = Date.UTC(todayYear, todayMonth, todayDate);
-      
-      // イベントまでの差分を日数に直す
-      result = Math.max(0, (eventUTC - todayUTC) / 1000 / 60 / 60 / 24);
-      
+        todayMonth = dateObj.getMonth() + 1,
+        todayDate = dateObj.getDate(),
+        todayHour = dateObj.getHours(),
+        todayMinute = dateObj.getMinutes(),
+        todaySecond = dateObj.getSeconds(),
+        
+        // 時間差の算出
+        targetUTC = Date.UTC(targetYear, targetMonth, targetDate, targetHour, targetMinute, targetSecond),
+        todayUTC = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond),
+        scope = Math.max(0, targetUTC - todayUTC),
+        
+        // 結果
+        result = {
+          "year": Math.max(0, targetYear - todayYear),
+          "month": Math.floor(Math.max(0, (targetYear * 12 + targetMonth) - (todayYear * 12 + todayMonth) + (targetDate - todayDate) / 100)),
+          "date": Math.floor(scope / 1000 / 60 / 60 / 24),
+          "hour": Math.floor(scope / 1000 / 60 / 60),
+          "minute": Math.floor(scope / 1000 / 60),
+          "second": Math.floor(scope / 1000)
+        };
+        
       return result;
     }
 
