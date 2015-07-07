@@ -56,7 +56,7 @@
      *    => { q: 'search', foo: 'bar' }
      * @return {object} URL パラメータのオブジェクト
      */
-    var extractUrlParams = function() {
+    function extractUrlParams() {
       var paramObj = {},
           i,
           ii,
