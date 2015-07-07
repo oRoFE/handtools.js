@@ -82,7 +82,7 @@
       }
 
       return paramObj;
-    };
+    }
 
     /**
      * for IE
