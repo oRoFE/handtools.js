@@ -67,7 +67,7 @@
      * @return {object} second  指定日までの残秒
      */
     function getCountDown(year, month, date, hour, minute, second) {
-      if (!year || !month || !date || parseInt(year, 10) === 0 || parseInt(month, 10) === 0 || parseInt(date, 10) === 0 || parseInt(month, 10) > 12) return false;
+      if (!year || !month || !date) return new Error('引数が不正です。年、月、日を指定してください。');
       if (!hour) hour = 0;
       if (!minute) minute = 0;
       if (!second) second = 0;
@@ -97,12 +97,12 @@
         
         // 結果
         result = {
-          "year": Math.max(0, targetYear - todayYear),
-          "month": Math.floor(Math.max(0, (targetYear * 12 + targetMonth) - (todayYear * 12 + todayMonth) + (targetDate - todayDate) / 100)),
-          "date": Math.floor(scope / 1000 / 60 / 60 / 24),
-          "hour": Math.floor(scope / 1000 / 60 / 60),
-          "minute": Math.floor(scope / 1000 / 60),
-          "second": Math.floor(scope / 1000)
+          'year': Math.max(0, targetYear - todayYear),
+          'month': Math.floor(Math.max(0, (targetYear * 12 + targetMonth) - (todayYear * 12 + todayMonth) + (targetDate - todayDate) / 100)),
+          'date': Math.floor(scope / 1000 / 60 / 60 / 24),
+          'hour': Math.floor(scope / 1000 / 60 / 60),
+          'minute': Math.floor(scope / 1000 / 60),
+          'second': Math.floor(scope / 1000)
         };
         
       return result;
