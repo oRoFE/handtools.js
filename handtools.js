@@ -49,6 +49,40 @@
       return matchStr? matchStr[0] : false;
     };
 
+    /**
+     * [extractUrlParams description]
+     * URL のパラメータをオブジェクトとして返す関数です。
+     * 例: http://example.com/?q=search&foo=bar
+     *    => { q: 'search', foo: 'bar' }
+     * @return {object} URL パラメータのオブジェクト
+     */
+    function extractUrlParams() {
+      var paramObj = {},
+          i,
+          ii,
+          param,
+          paramList;
+
+      // '?' を除くクエリ文字列を取得し、'&' で区切り、配列にする。
+      paramList = location.search.slice(1).split('&');
+
+      // それぞれのパラメータの値をオブジェクト内へと格納する。
+      for (i = 0, ii = paramList.length; i < ii; i++) {
+        param = paramList[i].split('=');
+
+        // 左辺が空の場合は結果には含めない
+        if (param[0] === '') {
+          continue;
+        }
+
+        // 右辺がない場合は空文字を入れる
+        param[1] = param[1] || '';
+
+        paramObj[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
+      }
+
+      return paramObj;
+    }
 
     /**
      * for IE
@@ -77,7 +111,8 @@
      */
 
     return {
-      'isMobile' : isMobile
+      'isMobile' : isMobile,
+      'extractUrlParams': extractUrlParams
     };
   })();
 
