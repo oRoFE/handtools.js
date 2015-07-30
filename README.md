@@ -71,3 +71,27 @@ $.handtools.extractUrlParams(); // => {}
 // http://example.com/?key の時
 $.handtools.extractUrlParams(); // => { key: '' }
 ```
+
+## formatDate
+
+与えられたパターン文字列に従って整形された日時の文字列を返す関数です。
+文字列の中に下記の文字が含まれていた場合、対応する日時情報に置き換えられます。
+下記の文字は複数つなげることによって、その数だけ0づめされます。
+
+```
+y: 年
+M: 月
+d: 日
+E: 曜日
+H: 時 (24時間表記)
+m: 分
+s: 秒
+```
+
+### 使い方
+
+```JavaScript
+var date = new Date(2015, 7, 10, 9, 30, 5);
+$.handtools.formatDate('yyyy/MM/dd', date); // -> '2015/08/10'
+$.handtools.formatDate('M/d (E) HH:mm', date); // -> '8/10 (月) 09:30'
+```
