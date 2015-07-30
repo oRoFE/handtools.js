@@ -85,6 +85,23 @@
     }
 
     /**
+     * [formatDate description]
+     * 与えられたパターン文字列に従って整形された日時の文字列を返す関数です。
+     * 文字列の中に下記の文字が含まれていた場合、対応する日時情報に置き換えられます。
+     * 下記の文字は複数つなげることによって、その数だけ0づめされます。
+     * y: 年, M: 月, d: 日, E: 曜日, H: 時, m: 分, s: 秒
+     * 例: 'yyyy/MM/dd E HH:mm:ss' -> '2015/08/10 月 09:30:05'
+     * @param {string} pattern - 出力したい日時の文字列のパターン
+     * @param {Date} date - 文字列として出力したい日時
+     * @return {string} 日時を表現する文字列
+     */
+    function formatDate(pattern, date) {
+      return pattern.replace(/([yMdEHms])\1*/g, function(match) {
+        return translateDatePattern(match, date);
+      });
+    }
+
+    /**
      * for IE
      */
     if('undefined' === typeof window.console) {
@@ -110,9 +127,65 @@
      * Private functions
      */
 
+     /**
+      * @private
+      * [translateDatePattern description]
+      * パターンに従って日時情報の文字列を返す関数です。
+      * formatDate 関数内で用います。
+      * 例: 'MM' -> '08'
+      * @param {string} pattern - 出力したい日時の文字列のパターン
+      * @param {Date} date - 文字列として出力したい日時
+      * @return {string} 日時を表現する文字列
+      */
+    function translateDatePattern(pattern, date) {
+      var char = pattern.charAt(0),
+          value,
+          i,
+          len,
+          pad;
+
+      switch (char) {
+        case 'y': // 年
+          value = date.getFullYear().toString();
+          break;
+        case 'M': // 月
+          value = (date.getMonth() + 1).toString();
+          break;
+        case 'd': // 日
+          value = date.getDate().toString();
+          break;
+        case 'E': // 曜日
+          // 以後の処理は不要なため、曜日はここでリターン
+          return ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+        case 'H': // 時 (24時間)
+          value = date.getHours().toString();
+          break;
+        case 'm': // 分
+          value = date.getMinutes().toString();
+          break;
+        case 's': // 秒
+          value = date.getSeconds().toString();
+          break;
+        default:
+          throw new Error('第1引数が不正です。日時フォーマットに使用可能な文字のみを使用してください。');
+      }
+
+      // どの長さまで0づめするか
+      len = Math.max(pattern.length, value.length);
+
+      // 0づめのためのパディング
+      pad = '';
+      for (i = 0; i < len; i++) {
+        pad += '0';
+      }
+
+      return (pad + value).slice(-len);
+    }
+
     return {
       'isMobile' : isMobile,
-      'extractUrlParams': extractUrlParams
+      'extractUrlParams': extractUrlParams,
+      'formatDate': formatDate
     };
   })();
 
